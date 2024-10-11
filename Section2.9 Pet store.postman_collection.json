@@ -1,0 +1,466 @@
+{
+	"info": {
+		"_postman_id": "0f109456-4e59-411b-b1e0-5d06d0996408",
+		"name": "Section2.9 Pet store",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37805618",
+		"_collection_link": "https://divya-work-on-postman.postman.co/workspace/Divya-work-on-postman-Workspace~d3c2b62f-b69f-436f-893b-08e666fe0813/collection/37805618-0f109456-4e59-411b-b1e0-5d06d0996408?action=share&source=collection_link&creator=37805618"
+	},
+	"item": [
+		{
+			"name": "1. create user using curl from swaggerdoc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var randmNum = Math.floor(Math.random()*100+1);",
+							"var randmStr =  \"susan\" + Math.random().toString(36).substring();",
+							"",
+							"pm.environment.set(\"id\",randmNum);",
+							"pm.collectionVariables.set(\"username\",randmStr);",
+							"pm.collectionVariables.set(\"firstName\", \"Susanna\");",
+							"pm.collectionVariables.set(\"lastName\", \"Thomas\");",
+							"pm.collectionVariables.set(\"email\", randmStr + \"@gmail.com\");",
+							"pm.collectionVariables.set(\"password\", randmStr);",
+							"pm.collectionVariables.set(\"phone\", Math.random()*1000000000);",
+							"pm.collectionVariables.set(\"status\", 0);",
+							"",
+							"console.log(randmNum);",
+							"console.log(randmStr);",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check status is 200\", function(){",
+							"",
+							"pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/xml"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"{{id}}\",\n  \"username\": \"{{username}}\",\n  \"firstName\": \"{{firstName}}\",\n  \"lastName\": \"{{lastName}}\",\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"phone\": \"{{phone}}\",\n  \"userStatus\": \"{{status}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\n  'https://petstore.swagger.io/v2/user' \\\n  -H 'accept: application/xml' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n  \"id\": 2020,\n  \"username\": \"Appu\",\n  \"firstName\": \"Aparna\",\n  \"lastName\": \"Mohan\",\n  \"email\": \"apMohan@gmail.com\",\n  \"password\": \"Welcome\",\n  \"phone\": \"123456\",\n  \"userStatus\": 1\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Create list of users with given input array",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"id\": 0,\n    \"username\": \"Appu\",\n    \"firstName\": \"Aparna\",\n    \"lastName\": \"Mohan\",\n    \"email\": \"apMohan@gmail.com\",\n    \"password\": \"Welcome\",\n    \"phone\": \"1234567890\",\n    \"userStatus\": 0\n  },\n\n  {\n    \"id\": 1,\n    \"username\": \"SaMano\",\n    \"firstName\": \"Shantha\",\n    \"lastName\": \"Manoharan\",\n    \"email\": \"saMoho@gmail.com\",\n    \"password\": \"Post!23\",\n    \"phone\": \"546456\",\n    \"userStatus\": 1\n  }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user/createWithArray",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user",
+						"createWithArray"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. getUserByUserName",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user/{{firstName}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user",
+						"{{firstName}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\n  'https://petstore.swagger.io/v2/user/Appu' \\\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "3. UpdatedUser",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var randmStr =  \"susan\" + Math.random().toString(36).substring();",
+							"",
+							"pm.collectionVariables.set(\"email\", randmStr + \"@gmail.com\");",
+							"pm.collectionVariables.set(\"phone\", Math.random()*100000);",
+							"",
+							"console.log(randmStr);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check status is 200\", function(){",
+							"",
+							"pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \n  \"email\": \"{{email}}\",\n  \"phone\": \"{{phone}}\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user/{{firstName}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user",
+						"{{firstName}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'PUT' \\\n  'https://petstore.swagger.io/v2/user/Appu' \\\n  -H 'accept: application/json' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n  \"id\": 2021,\n  \"username\": \"Appu\",\n  \"firstName\": \"Aparna\",\n  \"lastName\": \"Mohan\",\n  \"email\": \"Appu@gmail.com\",\n  \"password\": \"WereAre@gmail.com\",\n  \"phone\": \"4543534\",\n  \"userStatus\": 0\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "4. DeleteUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"",
+							"pm.environment.unset(\"id\");",
+							"pm.collectionVariables.unset(\"username\");",
+							"pm.collectionVariables.unset(\"firstName\");",
+							"pm.collectionVariables.unset(\"lastName\");",
+							"pm.collectionVariables.unset(\"email\");",
+							"pm.collectionVariables.unset(\"password\");",
+							"pm.collectionVariables.unset(\"phone\");",
+							"pm.collectionVariables.unset(\"status\");",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user/{{firstName}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user",
+						"{{firstName}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'DELETE' \\\n  'https://petstore.swagger.io/v2/user/samano' \\\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "Add new pet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Check pet name and photoUrls\", ()=>{",
+							"pm.expect(jsonData.name).to.eql(\"DCL\");",
+							"pm.expect(jsonData.photoUrls[0]).to.eql(\"OOOO\")",
+							"});",
+							"",
+							"pm.collectionVariables.set(\"ID\", jsonData.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Pet>\n\t<id>4567</id>\n\t<Category>\n\t\t<id>1</id>\n\t\t<name>Divya</name>\n\t</Category>\n\t<name>DCL</name>\n\t<photoUrls>\n\t\t<photoUrl>OOOO</photoUrl>\n\t</photoUrls>\n\t<tags>\n\t\t<Tag>\n\t\t\t<id>1</id>\n\t\t\t<name>Divya</name>\n\t\t</Tag>\n\t</tags>\n\t<status>available</status>\n</Pet>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find pet by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Check id is equal to the collectionVariable set\",()=>",
+							"{",
+							"pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"ID\"));",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/{{ID}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"{{ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update existing pet details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Check pet name\", ()=>{",
+							"  pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"ID\"));",
+							"  pm.expect(jsonData.name).to.eql(\"Thomachan\");",
+							"  pm.expect(jsonData.photoUrls[0]).to.eql(\"999\");",
+							"  pm.expect(jsonData.photoUrls[1]).to.eql(\"1234\")",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Pet>\n\t<id>{{ID}}</id>\n\t<Category>\n\t\t<id>{{ID}}</id>\n\t\t<name>Thomas</name>\n\t</Category>\n\t<name>Thomachan</name>\n\t<photoUrls>\n\t\t<photoUrl>999</photoUrl>\n        <photoUrl>1234</photoUrl>\n\t</photoUrls>\n\t<tags>\n\t\t<Tag>\n\t\t\t<id>0</id>\n\t\t\t<name>TMJ</name>\n\t\t</Tag>\n\t</tags>\n\t<status>available</status>\n</Pet>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete the pet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.unset(\"ID\")",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/{{ID}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"{{ID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
